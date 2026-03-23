@@ -7,57 +7,53 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
 
-/* --- THE CLEAN LIQUID DROP --- */
-#cart-ui.floating {
-    position: fixed !important;
-    /* We anchor to the top so the translateY animation works correctly */
-    top: calc(100vh - 80px) !important; 
-    right: 30px !important;
-    z-index: 99999 !important;
-    
-    background: #38bdf8 !important;
-    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5) !important;
-    
-    /* The Slide-Down Entrance */
-    animation: liquidDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-}
-
-@keyframes liquidDrop {
-    0% { 
-        /* Start way above the header */
-        transform: translateY(-100vh); 
-        opacity: 0; 
-    }
-    100% { 
-        /* Land perfectly in the bottom corner */
-        transform: translateY(0); 
-        opacity: 1; 
-    }
-}
-
-        /* --- Electric Blue Cart Badge --- */
+/* --- 1. Base State: Header Position --- */
 #cart-ui {
     position: fixed;
-    top: 25px; /* Matches your header level */
+    top: 25px; 
     right: 30px;
+    z-index: 10001; 
     background: #38bdf8;
     color: #0f172a;
     padding: 10px 22px;
     border-radius: 50px;
     font-weight: 800;
-    z-index: 10001; /* Higher than the header! */
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     border: none;
     box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    /* This makes every transition—including the drop—smooth as silk */
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* --- 2. Interaction Mode --- */
 #cart-ui:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
     filter: brightness(1.1);
 }
 
+/* --- 3. Active State: The Liquid Drop --- */
+#cart-ui.floating {
+    /* Anchors it to the bottom-right corner */
+    top: calc(100vh - 80px) !important; 
+    background: rgba(56, 189, 248, 0.95) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5) !important;
+    /* Triggers the high-speed drop animation */
+    animation: liquidDrop 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- 4. Animation Engine --- */
+@keyframes liquidDrop {
+    0% { 
+        transform: translateY(-100vh); 
+        opacity: 0; 
+    }
+    100% { 
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
 /* The "Scale Up" animation when an item is added */
 .cart-pop {
     transform: scale(1.2);
