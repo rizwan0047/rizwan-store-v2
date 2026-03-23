@@ -98,17 +98,50 @@
         /* --- PRICING & BUTTONS --- */
         .price { font-size: 1.5rem; font-weight: 800; color: var(--accent); margin: 10px 0 20px 0; }
 
-        .btn {
-            background: var(--accent) !important; color: white !important;
-            border: none; padding: 14px; border-radius: 12px; font-weight: 700;
-            cursor: pointer; transition: 0.3s; margin-top: auto; width: 100%;
-        }
+        /* --- 1. MOUSE USERS (Stealth Mode) --- */
+@media (hover: hover) {
+    .btn {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none; /* Can't click what you can't see */
+    }
 
-        .btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4); }
+    /* Reveal only when the card is hovered */
+    .card:hover .btn {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto; /* Now you can click it */
+    }
+}
 
-        #cart-ui { font-weight: 600; background: var(--accent); color: #0f172a; padding: 8px 18px; border-radius: 25px; transition: 0.2s; }
+/* --- 2. TOUCH USERS (Infinix/Mobile Mode) --- */
+@media (hover: none) {
+    .btn {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        margin-top: 15px; /* Adds space so it doesn't look cramped */
+    }
+}
 
-        @media (max-width: 600px) { header { flex-direction: column; gap: 15px; } .search-box { width: 100%; margin: 0; } }
+/* --- 3. UNIVERSAL STYLING (Looks) --- */
+/* This part stays outside the media queries so the button looks blue on both */
+.btn {
+    background: var(--accent) !important;
+    color: white !important;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn:active {
+    transform: scale(0.95); /* Tactile click feel for everyone */
+}
+
     </style>
 </head>
 <body>
