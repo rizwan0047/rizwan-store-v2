@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIZWAN | Premium Tech Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a; /* Deep Slate Navy */
+            --accent: #38bdf8;  /* Electric Blue */
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* --- PREMIUM GLASS HEADER --- */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 15px 5%;
+            display: flex; align-items: center; justify-content: space-between;
+            color: white; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--accent); text-decoration: none; letter-spacing: -1px; }
+
+        .search-box {
+            flex-grow: 1; max-width: 500px; margin: 0 20px;
+            display: flex; background: rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 4px; border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .search-box input {
+            background: transparent; border: none; color: white;
+            padding: 8px 12px; width: 100%; outline: none;
+        }
+
+        /* --- STABLE GRID --- */
+        .main-content { max-width: 1300px; margin: 40px auto; padding: 0 20px; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+    background: var(--white); 
+    border-radius: 24px; /* More rounded = more modern */
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Professional "Fluid" timing */
+    border: 1px solid rgba(0,0,0,0.03); 
+    display: flex; 
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover { 
+    transform: translateY(-12px) scale(1.02); 
+    box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.2); /* Blue accent glow */
+    border-color: var(--accent);
+}
+
+/* Add a "Glass" reflection effect on hover */
+.card::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    transition: 0.8s;
+    pointer-events: none;
+}
+
+.card:hover::after {
+    left: 120%;
+}
+
+        .card img { width: 100%; height: 220px; object-fit: cover; border-radius: 14px; margin-bottom: 15px; }
+
+        .price { font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+
+        .btn {
+            background: var(--primary); color: white; border: none;
+            padding: 14px; border-radius: 10px; font-weight: 600;
+            cursor: pointer; transition: 0.3s; margin-top: auto;
+        }
+
+        .btn:hover { background: var(--accent); color: var(--primary); }
+
+        #cart-ui { font-weight: 600; background: var(--accent); color: var(--primary); padding: 6px 15px; border-radius: 25px; }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 15px; }
+            .search-box { width: 100%; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">RIZWAN.</a>
+    <div class="search-box">
+        <input type="text" placeholder="Search premium tech...">
+    </div>
+    <div id="cart-ui">Cart (0)</div>
+</header>
+
+<div class="main-content">
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600" alt="Headphones">
+            <h3>Studio-Pro Wireless Headphones</h3>
+            <div class="price">$299.00</div>
+            <button class="btn" onclick="addOne()">Add to Cart</button>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=600" alt="Watch">
+            <h3>Titanium Smart Watch v2</h3>
+            <div class="price">$199.00</div>
+            <button class="btn" onclick="addOne()">Add to Cart</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let count = 0;
+    function addOne() {
+        count++;
+        document.getElementById('cart-ui').innerText = `Cart (${count})`;
+        // Visual feedback
+        const ui = document.getElementById('cart-ui');
+        ui.style.transform = "scale(1.1)";
+        setTimeout(() => ui.style.transform = "scale(1)", 200);
+    }
+</script>
+
+</body>
+</html>
