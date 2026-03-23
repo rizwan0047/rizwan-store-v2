@@ -206,6 +206,34 @@
                 opacity 0.3s ease;
 }
 
+/* Keeps the header from jumping when the cart floats */
+.cart-wrapper {
+    width: 120px; 
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Base style for the cart */
+#cart-ui {
+    background: #38bdf8;
+    color: #0f172a;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-weight: 800;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When floating, move to the corner */
+#cart-ui.floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+}
+
     </style>
 </head>
 <body>
@@ -215,7 +243,7 @@
         <span id="theme-icon">🌙</span>
     </button>
 
-    <header>
+   <header>
     <a href="#" class="logo">RIZWAN.</a>
     <div class="search-box">
         <input type="text" placeholder="Search premium tech...">
@@ -252,14 +280,11 @@
 const header = document.querySelector('header');
 
 window.addEventListener('scroll', () => {
-    const cartUI = document.getElementById('cart-ui');
-    const header = document.querySelector('header');
-    
-    // Only float if we have scrolled past the header height
-    if (window.scrollY > header.offsetHeight) {
-        cartUI.classList.add('floating');
+    const cart = document.getElementById('cart-ui');
+    if (window.scrollY > 80) {
+        cart.classList.add('floating');
     } else {
-        cartUI.classList.remove('floating');
+        cart.classList.remove('floating');
     }
 });
 
