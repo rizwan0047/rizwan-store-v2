@@ -288,11 +288,15 @@
     // --- LIQUID SCROLL ENGINE ---
     window.addEventListener('scroll', () => {
     const cart = document.getElementById('cart-ui');
-    // Using 60px as the threshold
-    if (window.scrollY > 60) {
+    const scrollPos = window.scrollY || document.documentElement.scrollTop;
+
+    // Use a small threshold (50px) to trigger the drop quickly
+    if (scrollPos > 50) {
         cart.classList.add('floating');
+        console.log("Cart is now floating");
     } else {
         cart.classList.remove('floating');
+        console.log("Cart is back in header");
     }
 });
 
