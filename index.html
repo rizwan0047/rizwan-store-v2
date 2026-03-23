@@ -6,6 +6,35 @@
     <title>RIZWAN | Premium Tech Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+
+        /* --- Electric Blue Cart Badge --- */
+#cart-ui {
+    background: #38bdf8 !important; /* The Rizwan Electric Blue */
+    color: #0f172a !important;      /* Deep Slate text for high contrast */
+    padding: 8px 18px;
+    border-radius: 50px;           /* Full pill shape */
+    font-weight: 800;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#cart-ui:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+    filter: brightness(1.1);
+}
+
+/* The "Scale Up" animation when an item is added */
+.cart-pop {
+    transform: scale(1.2);
+}
+
         /* --- CORE VARIABLES --- */
         :root {
             --bg-color: #f8fafc;
