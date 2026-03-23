@@ -190,6 +190,22 @@
     transform: scale(0.95); /* Tactile click feel for everyone */
 }
 
+/* This keeps the header from collapsing when the cart starts floating */
+.cart-wrapper {
+    width: 120px; 
+    height: 45px; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Ensure the cart transitions smoothly between header and floating */
+#cart-ui {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.3s ease, 
+                opacity 0.3s ease;
+}
+
     </style>
 </head>
 <body>
@@ -200,12 +216,14 @@
     </button>
 
     <header>
-        <a href="#" class="logo">RIZWAN.</a>
-        <div class="search-box">
-            <input type="text" placeholder="Search premium tech...">
-        </div>
+    <a href="#" class="logo">RIZWAN.</a>
+    <div class="search-box">
+        <input type="text" placeholder="Search premium tech...">
+    </div>
+    <div class="cart-wrapper">
         <div id="cart-ui">Cart (0)</div>
-    </header>
+    </div>
+</header>
 
     <div class="main-content">
         <div class="grid">
@@ -234,8 +252,11 @@
 const header = document.querySelector('header');
 
 window.addEventListener('scroll', () => {
-    // If we scroll past the header, make the cart float
-    if (window.scrollY > header.offsetHeight + 50) {
+    const cartUI = document.getElementById('cart-ui');
+    const header = document.querySelector('header');
+    
+    // Only float if we have scrolled past the header height
+    if (window.scrollY > header.offsetHeight) {
         cartUI.classList.add('floating');
     } else {
         cartUI.classList.remove('floating');
