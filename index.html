@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
 
-/* --- THE LIQUID DROP OVERRIDE --- */
+/* --- THE CLEAN LIQUID DROP --- */
 #cart-ui.floating {
     position: fixed !important;
-    bottom: 30px !important;
+    /* We anchor to the top so the translateY animation works correctly */
+    top: calc(100vh - 80px) !important; 
     right: 30px !important;
     z-index: 99999 !important;
     
-    /* Premium Styling */
     background: #38bdf8 !important;
     box-shadow: 0 15px 35px rgba(56, 189, 248, 0.5) !important;
     
@@ -24,30 +24,32 @@
 
 @keyframes liquidDrop {
     0% { 
-        transform: translateY(-120vh); /* Start completely off-screen */
+        /* Start way above the header */
+        transform: translateY(-100vh); 
         opacity: 0; 
     }
     100% { 
-        transform: translateY(0); /* Drop to the bottom right */
+        /* Land perfectly in the bottom corner */
+        transform: translateY(0); 
         opacity: 1; 
     }
 }
 
         /* --- Electric Blue Cart Badge --- */
 #cart-ui {
-    background: #38bdf8 !important; /* The Rizwan Electric Blue */
-    color: #0f172a !important;      /* Deep Slate text for high contrast */
-    padding: 8px 18px;
-    border-radius: 50px;           /* Full pill shape */
+    position: fixed;
+    top: 25px; /* Matches your header level */
+    right: 30px;
+    background: #38bdf8;
+    color: #0f172a;
+    padding: 10px 22px;
+    border-radius: 50px;
     font-weight: 800;
-    font-size: 0.9rem;
+    z-index: 10001; /* Higher than the header! */
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
     border: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
 }
 
 #cart-ui:hover {
@@ -258,7 +260,7 @@
     <div class="cart-wrapper"></div> 
 </header>
 
-<div id="cart-ui" onclick="alert('Cart coming soon!')">Cart (0)</div>
+<div id="cart-ui">Cart (0)</div>
 
 <div class="main-content">
     <div class="grid">
@@ -289,19 +291,14 @@
 
     // --- LIQUID SCROLL ENGINE ---
     window.addEventListener('scroll', () => {
-        // We use a small threshold (50px) to trigger the drop quickly
-        if (window.pageYOffset > 50) {
-            cart.classList.add('floating');
-        } else {
-            cart.classList.remove('floating');
-        }
-
-        // Progress Bar Logic (Verified working in your video!)
-        const winScroll = document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        if (progressBar) { progressBar.style.width = scrolled + "%"; }
-    });
+    const cart = document.getElementById('cart-ui');
+    // Using 60px as the threshold
+    if (window.scrollY > 60) {
+        cart.classList.add('floating');
+    } else {
+        cart.classList.remove('floating');
+    }
+});
 
     // --- ADD TO CART LOGIC ---
     function addOne() {
