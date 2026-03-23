@@ -78,16 +78,33 @@
     transform: scale(0.96);
 }
         :root {
-            --primary: #0f172a; /* Deep Slate Navy */
-            --accent: #38bdf8;  /* Electric Blue */
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-        }
+    /* Light Mode (Clean & Crisp) */
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --accent: #38bdf8; /* Electric Blue */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+}
 
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+[data-theme="dark"] {
+    /* Dark Mode (OLED & Professional) */
+    --bg-color: #020617; /* Deep Midnight */
+    --card-bg: #0f172a; /* Slate Blue-Gray */
+    --text-main: #f1f5f9;
+    --accent: #38bdf8; 
+    --glass-bg: rgba(15, 23, 42, 0.8);
+}
 
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
         /* --- PREMIUM GLASS HEADER --- */
         header {
             position: sticky; top: 0; z-index: 1000;
