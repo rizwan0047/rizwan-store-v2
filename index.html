@@ -7,6 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
 
+
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    z-index: 10000; /* Above everything */
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    transition: width 0.1s ease-out;
+}
+
 /* --- Fix invisible buttons --- */
 .buy-btn {
     background: #38bdf8 !important; /* The Rizwan Electric Blue */
@@ -237,6 +250,8 @@ body {
 </button>
 <body>
 
+    <div id="scroll-progress"></div>
+    
 <header>
     <a href="#" class="logo">RIZWAN.</a>
     <div class="search-box">
@@ -292,6 +307,15 @@ body {
         document.documentElement.setAttribute('data-theme', savedTheme);
         themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
+    window.onscroll = function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressBar = document.getElementById("scroll-progress");
+        if (progressBar) {
+            progressBar.style.width = scrolled + "%";
+        }
+    };
 </script>
 
 </body>
