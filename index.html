@@ -6,6 +6,23 @@
     <title>RIZWAN | Premium Tech Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+
+      .theme-btn {
+    position: fixed;
+    top: 85px; /* Moved down so it doesn't overlap your header */
+    right: 25px;
+    z-index: 9999; /* Highest priority */
+    background: #1e293b;
+    border: 1px solid #38bdf8;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.theme-btn:hover {
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 15px var(--accent);
+}
         /* --- The Premium Gallery Effect --- */
 .product-image-container {
     width: 100%;
@@ -55,23 +72,22 @@
     transform: translateY(-2px);
 }
 
-/* --- The Liquid "Buy" Button --- */
 .buy-btn {
-    background: linear-gradient(135deg, #38bdf8, #818cf8);
-    color: white;
+    background: #38bdf8 !important; /* Forces the Electric Blue */
+    color: white !important;
     border: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+    transition: 0.3s;
 }
 
 .buy-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4);
+    background: #0ea5e9 !important; /* Darker blue on hover */
+    transform: scale(1.02);
 }
 
 .buy-btn:active {
@@ -194,6 +210,9 @@ body {
         }
     </style>
 </head>
+<button id="theme-toggle" class="theme-btn">
+    <span id="theme-icon">🌙</span>
+</button>
 <body>
 
 <header>
@@ -230,6 +249,26 @@ body {
         const ui = document.getElementById('cart-ui');
         ui.style.transform = "scale(1.1)";
         setTimeout(() => ui.style.transform = "scale(1)", 200);
+    }
+    // ... all your existing UI scale functions ...
+
+    const toggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    toggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', newTheme);
+    });
+
+    // Check for saved preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
 </script>
 
